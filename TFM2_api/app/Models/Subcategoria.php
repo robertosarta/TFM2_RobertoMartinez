@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+class Subcategoria extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'nombre', 
+        'categoria_id'
+    ];
+
+    // public function categoria() {
+    //     return $this->belongsTo(Categoria::class, 'categoria_id');       HASTA QUE NO CREE CATEGORIA COMO CLASE SALE ROJO
+    // }
+
+    public function servicios() {
+        return $this->hasMany(Servicios::class, 'subcategoria_id');
+    }
+}
