@@ -9,6 +9,8 @@ class Servicios extends Model
 {
     use HasFactory;
     
+    protected $primaryKey = 'servicios_id';
+
     protected $fillable = [
         'nombre',
         'email',

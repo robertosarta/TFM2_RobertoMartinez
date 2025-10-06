@@ -9,14 +9,16 @@ class Subcategoria extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'subcategoria_id';
+
     protected $fillable = [
         'nombre', 
         'categoria_id'
     ];
 
-    // public function categoria() {
-    //     return $this->belongsTo(Categoria::class, 'categoria_id');       HASTA QUE NO CREE CATEGORIA COMO CLASE SALE ROJO
-    // }
+    public function categoria() {
+        return $this->belongsTo(Categoria::class, 'categoria_id');     
+    }
 
     public function servicios() {
         return $this->hasMany(Servicios::class, 'subcategoria_id');
