@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
+use App\Models\Servicio;
+use App\Models\Subcategoria;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::factory(19)->create();
+        $this->call(UserSeeder::class);
+        Categoria::factory(20)->create();
+        Subcategoria::factory(20)->create();
+        Servicio::factory(20)->create();
     }
 }

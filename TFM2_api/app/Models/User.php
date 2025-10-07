@@ -52,6 +52,6 @@ class User extends Authenticatable
     }
 
     public function servicios() {
-        return $this->hasMany(servicios::class, 'usuario_id');
+        return $this->hasMany(Servicio::class, 'usuario_id');
     }
 }

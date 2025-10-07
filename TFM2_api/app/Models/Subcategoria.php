@@ -21,6 +21,6 @@ class Subcategoria extends Model
     }
 
     public function servicios() {
-        return $this->hasMany(Servicios::class, 'subcategoria_id');
+        return $this->hasMany(Servicio::class, 'subcategoria_id');
     }
 }
