@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subcategorias', function (Blueprint $table) {
-            $table->id('subcategoria_id');
+            $table->id();
             $table->string('nombre');
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->timestamps();

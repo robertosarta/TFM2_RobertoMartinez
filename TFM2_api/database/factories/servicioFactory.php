@@ -24,8 +24,8 @@ class servicioFactory extends Factory
             'telefono' => $this->faker->phoneNumber(),
             'direccion' => $this->faker->address(),
             'descripcion' => $this->faker->sentence(10),
-            'usuario_id' => User::factory(),
-            'subcategoria_id' => Subcategoria::factory(),
+            'usuario_id' => User::inRandomOrder()->first()->id,
+            'subcategoria_id' => Subcategoria::inRandomOrder()->first()->id,
         ];
     }
 }

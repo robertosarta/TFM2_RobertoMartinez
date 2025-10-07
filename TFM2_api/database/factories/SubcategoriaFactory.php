@@ -8,7 +8,7 @@ use App\Models\Categoria;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class SubctegoriaFactory extends Factory
+class SubcategoriaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,7 @@ class SubctegoriaFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word(),
-            'categoria_id' => Categoria::factory(),
+            'categoria_id' => Categoria::inRandomOrder()->first()->id,
         ];
     }
 }
