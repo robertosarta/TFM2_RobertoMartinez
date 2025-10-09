@@ -22,7 +22,7 @@ class Servicio extends Model
     ];
 
     public function usuario() {
-        return $this->belongsTo(User::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function subcategoria() {

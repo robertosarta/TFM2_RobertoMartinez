@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $primaryKey = 'usuario_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
@@ -52,6 +52,6 @@ class User extends Authenticatable
     }
 
     public function servicios() {
-        return $this->hasMany(Servicio::class, 'usuario_id');
+        return $this->hasMany(Servicio::class, 'id');
     }
 }
