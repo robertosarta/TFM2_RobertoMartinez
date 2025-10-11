@@ -27,13 +27,13 @@
                         <td>{{ $user->direccion}}</td>
                         <td>{{ $user->rol}}</td>
                         <td>
-                            <a href="{{ route('users.show', $user) }}" class="btn btn-info btn-sm">ver</a>
+                            {{-- <a href="{{ route('users.show', $user) }}" class="btn btn-info btn-sm">ver</a>
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
                             <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach

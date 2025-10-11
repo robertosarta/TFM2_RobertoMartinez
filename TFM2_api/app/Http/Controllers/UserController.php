@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        if (!Gate::allows('ver-users')){
+        if (!Gate::allows('users-show')){
             abort(403);
         }
 
