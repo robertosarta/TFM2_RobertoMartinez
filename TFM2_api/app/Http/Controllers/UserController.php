@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function create()
     {
-        if (!Gate::allows('crear-users')) {
+        if (!Gate::allows('users-create')) {
             abort(403);
         }
 
@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (!Gate::allows('crear-users')) {
+        if (!Gate::allows('users-create')) {
             abort(403);
         }
 
@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if (!Gate::allows('eliminar-users')){
+        if (!Gate::allows('users-delete')){
             abort(403);
         }
 

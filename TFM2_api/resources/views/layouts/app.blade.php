@@ -29,7 +29,8 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot ?? '' }}
+                {{-- CON ESTO CONSEGUIMOS QUE SE VEAN LAS VISTAS TANTO DE @extends con @yield COMO DE <x-app-layout> CON $slot --}}
+                {{ $slot ?? '' }}  
                 @yield('content')
             </main>
         </div>
