@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Categoria;
+use App\Models\Category;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class SubcategoriaFactory extends Factory
+class SubcategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class SubcategoriaFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => $this->faker->word(),
-            'categoria_id' => Categoria::inRandomOrder()->first()->id,
+            'name' => $this->faker->word(),
+            'category_id' => Category::inRandomOrder()->first()->id,
         ];
     }
 }

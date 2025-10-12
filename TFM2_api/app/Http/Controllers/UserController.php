@@ -15,8 +15,8 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $users = User::all();   
+        return response()->json($users);
     }
 
     public function create()
