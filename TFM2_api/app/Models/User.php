@@ -23,9 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'telefono',
-        'direccion',
-        'rol',
+        'phone',
+        'address',
+        'role',
     ];
 
     /**
@@ -51,7 +51,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function servicios() {
-        return $this->hasMany(Servicio::class, 'id');
+    public function services() {
+        return $this->hasMany(Service::class, 'user_id');
     }
 }

@@ -38,18 +38,18 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'telefono' => 'nullable|string|regex:/^\+?[0-9]{9,15}$/', //ese regex vale para que admita numeros con '+' y minimo de 9 digitos, max 15
-            'direccion' => 'nullable|string|max:255',
-            'rol' => 'required|in:admin,cliente'
+            'phone' => 'nullable|string|regex:/^\+?[0-9]{9,15}$/', //ese regex vale para que admita numeros con '+' y minimo de 9 digitos, max 15
+            'address' => 'nullable|string|max:255',
+            'role' => 'required|in:admin,cliente'
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'telefono' => $request->telefono,
-            'direccion' => $request->direccion,
-            'rol' => $request->rol,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'role' => $request->role,
         ]);
 
         return redirect()->route('users.index')->with('success','201 Usuario creado correctamente');

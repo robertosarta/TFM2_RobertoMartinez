@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>users</h1>
+        <h1>Usuarios</h1>
         <a href="{{ route('users.create') }}" class="btn btn-primary">Crear Usuario</a>
 
         <table class="table mt-3">
@@ -23,9 +23,9 @@
                         <td>{{ $user->id}}</td>
                         <td>{{ $user->name}}</td>
                         <td>{{ $user->email}}</td>
-                        <td>{{ $user->telefono}}</td>
-                        <td>{{ $user->direccion}}</td>
-                        <td>{{ $user->rol}}</td>
+                        <td>{{ $user->phone}}</td>
+                        <td>{{ $user->adress}}</td>
+                        <td>{{ $user->role}}</td>
                         <td>
                             {{-- <a href="{{ route('users.show', $user) }}" class="btn btn-info btn-sm">ver</a>
                             <a href="{{ route('users.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
