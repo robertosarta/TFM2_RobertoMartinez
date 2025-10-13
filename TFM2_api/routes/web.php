@@ -1,33 +1,33 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\CategoryController;
+// use App\Http\Controllers\UserController;
+// use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/public', function () {
-    return view('public');
-})->name('public');
+// Route::get('/public', function () {
+//     return view('public');
+// })->name('public');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+// Route::middleware('auth')->group(function () {
+//     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+//     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+//     Route::post('/users', [UserController::class, 'store'])->name('users.store');
+//     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-});
+//     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+// });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

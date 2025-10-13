@@ -12,26 +12,26 @@ class UserController extends Controller
     public function index()
     {
         if (!Gate::allows('users-show')){
-            abort(403);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $users = User::all();   
-        return response()->json($users);
+        return response()->json(['data' => $users], 200);
     }
 
-    public function create()
-    {
-        if (!Gate::allows('users-create')) {
-            abort(403);
-        }
+    // public function create()
+    // {
+    //     if (!Gate::allows('users-create')) {
+    //         abort(403);
+    //     }
 
-        return view('users.create');
-    }
+    //     return view('users.create');
+    // }
 
     public function store(Request $request)
     {
         if (!Gate::allows('users-create')) {
-            abort(403);
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         $request->validate([
