@@ -1,33 +1,19 @@
 <?php
 
-// use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\CategoryController;
-// use App\Http\Controllers\UserController;
+// use App\Http\Controllers\Api\UserApiController;
+// use App\Http\Controllers\Api\CategoryApiController;
 // use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
+
+// Route::post('/users', [UserApiController::class, 'store']); //REGISTRO PUBLICO
+// Route::get('/users/{id}', [UserApiController::class, 'show']); //VER USUARIO PUBLICO
+// Route::get('/categories', [CategoryApiController::class, 'index']);//INDICE CATEGORIAS PUBLICO
+
+
+// //TOKEN ADMIN;    1|inRwhbiNl2dhA1si5PDPFW23gI5aHYMSpgg1AtpG2e8253a1
+// Route::middleware('auth:sanctum')->group(function() {
+//     //CRUD USUARIOS
+//     Route::apiResource('users', UserApiController::class)->only(['index', 'update', 'destroy']);
+//     //CRUD CATEGORIAS
+//     Route::apiResource('categories', CategoryApiController::class)->only(['store', 'update', 'destroy']);
 // });
-
-// Route::get('/public', function () {
-//     return view('public');
-// })->name('public');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-//     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-//     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-//     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-//     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-// });
-
-// require __DIR__.'/auth.php';
