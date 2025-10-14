@@ -11,6 +11,23 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="Login user",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email","password"},
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Login successful, returns token"),
+     *     @OA\Response(response=422, description="Validation failed")
+     * )
+     */
     public function index(Request $request): JsonResponse
     {
         $request->validate([
@@ -31,6 +48,15 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="Logout user",
+     *     tags={"Auth"},
+     *     @OA\Response(response=200, description="Logout successful"),
+     *     security={{"sanctum": {}}}
+     * )
+     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();

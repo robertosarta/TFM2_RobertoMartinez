@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Auth;
 class ServiceApiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/services",
+     *     summary="List all services",
+     *     tags={"Services"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Service"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -19,7 +28,22 @@ class ServiceApiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/services",
+     *     summary="Create a new service",
+     *     tags={"Services"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","price"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="price", type="number")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Service created successfully"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function store(Request $request)
     {
@@ -39,7 +63,20 @@ class ServiceApiController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/services/{id}",
+     *     summary="Get a single service",
+     *     tags={"Services"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Service ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=404, description="Service not found")
+     * )
      */
     public function show(string $id)
     {
@@ -51,7 +88,32 @@ class ServiceApiController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/services/{id}",
+     *     summary="Update a service",
+     *     tags={"Services"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Service ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="phone", type="string"),
+     *             @OA\Property(property="address", type="string"),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="subcategory_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Service updated successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(response=404, description="Service not found"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -88,7 +150,22 @@ class ServiceApiController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/services/{id}",
+     *     summary="Delete a service",
+     *     tags={"Services"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Service ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Service deleted successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(response=404, description="Service not found"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function destroy($id)
     {

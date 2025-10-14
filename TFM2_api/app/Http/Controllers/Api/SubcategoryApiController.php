@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Auth;
 class SubcategoryApiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/subcategories",
+     *     summary="List all subcategories",
+     *     tags={"Subcategories"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Subcategory"))
+     *     )
+     * )
      */
     public function index()
     {
@@ -19,7 +28,22 @@ class SubcategoryApiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/subcategories",
+     *     summary="Create a new subcategory (admin only)",
+     *     tags={"Subcategories"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","category_id"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="category_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Subcategory created successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function store(Request $request)
     {
@@ -40,7 +64,20 @@ class SubcategoryApiController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/subcategories/{id}",
+     *     summary="Get a single subcategory",
+     *     tags={"Subcategories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Subcategory ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=404, description="Subcategory not found")
+     * )
      */
     public function show($id)
     {
@@ -54,7 +91,28 @@ class SubcategoryApiController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/subcategories/{id}",
+     *     summary="Update a subcategory (admin only)",
+     *     tags={"Subcategories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Subcategory ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="category_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Subcategory updated successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(response=404, description="Subcategory not found"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function update(Request $request, string $id)
     {
@@ -81,7 +139,22 @@ class SubcategoryApiController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/subcategories/{id}",
+     *     summary="Delete a subcategory (admin only)",
+     *     tags={"Subcategories"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Subcategory ID",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response=200, description="Subcategory deleted successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(response=404, description="Subcategory not found"),
+     *     security={{"sanctum": {}}}
+     * )
      */
     public function destroy(string $id)
     {
