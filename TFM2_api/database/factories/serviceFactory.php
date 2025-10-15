@@ -4,12 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
-use App\Models\Subcategoria;
+use App\Models\Subcategory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\servicio>
  */
-class servicioFactory extends Factory
+class serviceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,13 +19,13 @@ class servicioFactory extends Factory
     public function definition(): array
     {
         return [
-            'nombre' => $this->faker->company(),
+            'name' => $this->faker->company(),
             'email' => $this->faker->unique()->companyEmail(),
-            'telefono' => $this->faker->phoneNumber(),
-            'direccion' => $this->faker->address(),
-            'descripcion' => $this->faker->sentence(10),
-            'usuario_id' => User::inRandomOrder()->first()->id,
-            'subcategoria_id' => Subcategoria::inRandomOrder()->first()->id,
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
+            'description' => $this->faker->sentence(10),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'subcategory_id' => Subcategory::inRandomOrder()->first()->id,
         ];
     }
 }

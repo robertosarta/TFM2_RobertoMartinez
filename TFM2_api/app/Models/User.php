@@ -4,28 +4,49 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     title="User",
+ *     description="User model",
+ *     type="object",
+ *     required={"id", "name", "email", "role"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="John Doe"),
+ *     @OA\Property(property="email", type="string", example="john@example.com"),
+ *     @OA\Property(property="phone", type="string", example="+34 600 123 456"),
+ *     @OA\Property(property="address", type="string", example="123 Main St, Madrid"),
+ *     @OA\Property(property="role", type="string", example="admin"),
+ *     @OA\Property(
+ *         property="services",
+ *         type="array",
+ *         @OA\Items(ref="#/components/schemas/Service")
+ *     )
+ * )
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $primaryKey = 'usuario_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'telefono',
-        'direccion',
-        'rol',
+        'phone',
+        'address',
+        'role',
     ];
 
     /**
@@ -51,7 +72,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function servicios() {
-        return $this->hasMany(Servicio::class, 'usuario_id');
+    public function services() {
+        return $this->hasMany(Service::class, 'user_id');
     }
 }
