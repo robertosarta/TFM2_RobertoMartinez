@@ -5,6 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+/**
+ * @OA\Schema(
+ *     schema="Subcategory",
+ *     title="Subcategory",
+ *     description="Subcategory model",
+ *     type="object",
+ *     required={"id", "name", "category_id"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Laptops"),
+ *     @OA\Property(property="category_id", type="integer", example=1),
+ *     @OA\Property(property="category", ref="#/components/schemas/Category")
+ * )
+ */
 class Subcategory extends Model
 {
     use HasFactory;

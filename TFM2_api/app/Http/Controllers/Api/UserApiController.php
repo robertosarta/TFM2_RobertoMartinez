@@ -12,7 +12,7 @@ class UserApiController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/users",
+     *     path="/users",
      *     summary="List all users (permission required)",
      *     tags={"Users"},
      *     @OA\Response(response=200, description="Successful operation"),
@@ -31,7 +31,7 @@ class UserApiController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/users",
+     *     path="/users",
      *     summary="Create a new user",
      *     tags={"Users"},
      *     @OA\RequestBody(
@@ -70,7 +70,7 @@ class UserApiController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/users/{id}",
+     *     path="/users/{id}",
      *     summary="Get a single user",
      *     tags={"Users"},
      *     @OA\Parameter(
@@ -91,29 +91,9 @@ class UserApiController extends Controller
         return response()->json(['data' => $user], 200);
     }
 
-    public function update(Request $request, $id)
-    {
-        if (!Gate::allows('users-update')) {
-            return response()->json(['message' => 'Forbidden'], 403);
-        }
-
-        $user = User::findOrFail($id);
-        $data = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|unique:users,email,'.$user->id,
-            'password' => 'sometimes|string|min:8|confirmed',
-            'phone' => 'nullable|string',
-            'address' => 'nullable|string|max:255',
-            'role' => 'sometimes|in:admin,cliente',
-        ]);
-
-        if(isset($data['password'])){
-            $data['password'] = Hash::make($data['password']);
-        }
-
-        /**
+    /**
      * @OA\Put(
-     *     path="/api/users/{id}",
+     *     path="/users/{id}",
      *     summary="Update a user (permission required)",
      *     tags={"Users"},
      *     @OA\Parameter(
@@ -137,13 +117,33 @@ class UserApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
+    public function update(Request $request, $id)
+    {
+        if (!Gate::allows('users-update')) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+
+        $user = User::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string|email|unique:users,email,'.$user->id,
+            'password' => 'sometimes|string|min:8|confirmed',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string|max:255',
+            'role' => 'sometimes|in:admin,cliente',
+        ]);
+
+        if(isset($data['password'])){
+            $data['password'] = Hash::make($data['password']);
+        }
+
         $user->update($data);
         return response()->json(['data' => $user], 200);
     }
 
     /**
      * @OA\Delete(
-     *     path="/api/users/{id}",
+     *     path="/users/{id}",
      *     summary="Delete a user (permission required)",
      *     tags={"Users"},
      *     @OA\Parameter(

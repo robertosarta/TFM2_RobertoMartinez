@@ -11,7 +11,7 @@ class CategoryApiController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/categories",
+     *     path="/categories",
      *     summary="List all categories",
      *     tags={"Categories"},
      *     @OA\Response(
@@ -37,7 +37,7 @@ class CategoryApiController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/categories",
+     *     path="/categories",
      *     summary="Create a new category",
      *     tags={"Categories"},
      *     @OA\RequestBody(
@@ -63,14 +63,14 @@ class CategoryApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Categoría creada correctamente',
+            'message' => 'Category created successfully',
             'data' => $category
         ], 201);
     }
 
     /**
      * @OA\Put(
-     *     path="/api/categories/{id}",
+     *     path="/categories/{id}",
      *     summary="Update a category",
      *     tags={"Categories"},
      *     @OA\Parameter(
@@ -103,14 +103,14 @@ class CategoryApiController extends Controller
         
         return response()->json([
             'success' => true,
-            'message' => 'categoria actualizada correctamente',
+            'message' => 'category updated successfully',
             'data' => $category
         ]);
     }
 
     /**
      * @OA\Delete(
-     *     path="/api/categories/{id}",
+     *     path="/categories/{id}",
      *     summary="Delete a category",
      *     tags={"Categories"},
      *     @OA\Parameter(
@@ -131,7 +131,7 @@ class CategoryApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Categoria eliminada correctamente'
+            'message' => 'Category deleted successfully'
         ]);
     }
 }

@@ -11,7 +11,7 @@ class ServiceApiController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/services",
+     *     path="/services",
      *     summary="List all services",
      *     tags={"Services"},
      *     @OA\Response(
@@ -29,7 +29,7 @@ class ServiceApiController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/services",
+     *     path="/services",
      *     summary="Create a new service",
      *     tags={"Services"},
      *     @OA\RequestBody(
@@ -64,7 +64,7 @@ class ServiceApiController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/services/{id}",
+     *     path="/services/{id}",
      *     summary="Get a single service",
      *     tags={"Services"},
      *     @OA\Parameter(
@@ -89,7 +89,7 @@ class ServiceApiController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/services/{id}",
+     *     path="/services/{id}",
      *     summary="Update a service",
      *     tags={"Services"},
      *     @OA\Parameter(
@@ -151,7 +151,7 @@ class ServiceApiController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/services/{id}",
+     *     path="/services/{id}",
      *     summary="Delete a service",
      *     tags={"Services"},
      *     @OA\Parameter(

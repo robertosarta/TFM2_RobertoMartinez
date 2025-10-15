@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/login",
      *     summary="Login user",
      *     tags={"Auth"},
      *     @OA\RequestBody(
@@ -28,7 +28,7 @@ class AuthController extends Controller
      *     @OA\Response(response=422, description="Validation failed")
      * )
      */
-    public function index(Request $request): JsonResponse
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|email',
@@ -50,7 +50,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/logout",
+     *     path="/logout",
      *     summary="Logout user",
      *     tags={"Auth"},
      *     @OA\Response(response=200, description="Logout successful"),

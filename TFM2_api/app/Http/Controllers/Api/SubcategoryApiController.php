@@ -11,7 +11,7 @@ class SubcategoryApiController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/subcategories",
+     *     path="/subcategories",
      *     summary="List all subcategories",
      *     tags={"Subcategories"},
      *     @OA\Response(
@@ -29,7 +29,7 @@ class SubcategoryApiController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/subcategories",
+     *     path="/subcategories",
      *     summary="Create a new subcategory (admin only)",
      *     tags={"Subcategories"},
      *     @OA\RequestBody(
@@ -65,7 +65,7 @@ class SubcategoryApiController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/subcategories/{id}",
+     *     path="/subcategories/{id}",
      *     summary="Get a single subcategory",
      *     tags={"Subcategories"},
      *     @OA\Parameter(
@@ -92,7 +92,7 @@ class SubcategoryApiController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/subcategories/{id}",
+     *     path="/subcategories/{id}",
      *     summary="Update a subcategory (admin only)",
      *     tags={"Subcategories"},
      *     @OA\Parameter(
@@ -140,7 +140,7 @@ class SubcategoryApiController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/subcategories/{id}",
+     *     path="/subcategories/{id}",
      *     summary="Delete a subcategory (admin only)",
      *     tags={"Subcategories"},
      *     @OA\Parameter(
