@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/users', [UserApiController::class, 'store']); //REGISTRO PUBLICO
+Route::post('/register', [UserApiController::class, 'register']); //REGISTRO PUBLICO
 Route::get('/users/{id}', [UserApiController::class, 'show']); //VER USUARIO PUBLICO
 Route::get('/categories', [CategoryApiController::class, 'index']);//INDICE CATEGORIAS PUBLICO
 Route::get('/services', [ServiceApiController::class, 'index']);//INDICE SERVICIOS PUBLICO
@@ -19,8 +19,10 @@ Route::get('/subcategories/{id}', [SubcategoryApiController::class, 'show']);//V
 
 
 Route::middleware('auth:sanctum')->group(function() {
+    //LOGOUT
+    Route::post('/logout', [AuthController::class, 'logout']);
     //CRUD USUARIOS
-    Route::apiResource('users', UserApiController::class)->only(['index', 'update', 'destroy']);
+    Route::apiResource('users', UserApiController::class)->only(['index', 'store', 'update', 'destroy']);
     //CRUD CATEGORIAS
     Route::apiResource('categories', CategoryApiController::class)->only(['store', 'update', 'destroy']);
     //CRUD SERVICIOS

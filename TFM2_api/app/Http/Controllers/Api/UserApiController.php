@@ -32,7 +32,7 @@ class UserApiController extends Controller
     /**
      * @OA\Post(
      *     path="/users",
-     *     summary="Create a new user",
+     *     summary="Create a new user (admin only)",
      *     tags={"Users"},
      *     @OA\RequestBody(
      *         required=true,
@@ -53,6 +53,10 @@ class UserApiController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Gate::allows('users-create')) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
+        
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',

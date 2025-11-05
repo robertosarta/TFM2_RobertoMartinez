@@ -13,6 +13,48 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(
+     *     path="/register",
+     *     summary="Register a new user",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email","password"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *             @OA\Property(property="password_confirmation", type="string")
+     *             @OA\Property(property="phone", type="string")
+     *             @OA\Property(property="adress", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="User registered successfully"),
+     *     @OA\Response(response=422, description="Validation failed")
+     * )
+     */
+    public function register(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        $data['password'] = Hash::make($data['password']);
+        $data['role'] = 'cliente';
+
+        $user = User::create($data);
+
+        return response()->json([
+            'data' => $user,
+            'token' => $user->createToken($user->email)->plainTextToken,
+        ], 201);
+    }
+
+    /**
+     * @OA\Post(
      *     path="/login",
      *     summary="Login user",
      *     tags={"Auth"},
