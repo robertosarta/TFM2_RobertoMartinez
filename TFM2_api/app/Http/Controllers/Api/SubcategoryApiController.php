@@ -55,7 +55,7 @@ class SubcategoryApiController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,category_id',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $subcategory = Subcategory::create($validated);
@@ -130,7 +130,7 @@ class SubcategoryApiController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'category_id' => 'sometimes|exists:categories,category_id',
+            'category_id' => 'sometimes|exists:categories,id',
         ]);
 
         $subcategory->update($validated);

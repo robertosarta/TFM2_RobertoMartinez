@@ -134,7 +134,7 @@ class ServiceApiController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'subcategory_id' => 'nullable|integer|exists:subcategories,subcategory_id'
+            'subcategory_id' => 'nullable|integer|exists:subcategories,id'
         ]);
 
         $service->update($request->only([
