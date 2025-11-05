@@ -38,7 +38,7 @@ class CategoryApiController extends Controller
     /**
      * @OA\Post(
      *     path="/categories",
-     *     summary="Create a new category",
+     *     summary="Create a new category (admin only)",
      *     tags={"Categories"},
      *     @OA\RequestBody(
      *         required=true,
@@ -48,18 +48,23 @@ class CategoryApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=201, description="Category created successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )
      */
     public function store(Request $request) 
     {
-        $request->validate([
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $validated = $request->validate([
             'name' => 'required|string|max:255'
         ]);
 
-        $category = Category::create([
-            'name' => $request->name
-        ]);
+        $category = Category::create($validated);
 
         return response()->json([
             'success' => true,
@@ -71,7 +76,7 @@ class CategoryApiController extends Controller
     /**
      * @OA\Put(
      *     path="/categories/{id}",
-     *     summary="Update a category",
+     *     summary="Update a category (admin only)",
      *     tags={"Categories"},
      *     @OA\Parameter(
      *         name="id",
@@ -88,18 +93,24 @@ class CategoryApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=200, description="Category updated successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $category = Category::findOrFail($id);
-        $request->validate([
+
+        $validated = $request->validate([
             'name' => 'required|string|max:255'
         ]);
-        $category->update([
-            'name' => $request->name
-        ]);
+        $category->update($validated);
         
         return response()->json([
             'success' => true,
@@ -111,7 +122,7 @@ class CategoryApiController extends Controller
     /**
      * @OA\Delete(
      *     path="/categories/{id}",
-     *     summary="Delete a category",
+     *     summary="Delete a category(admin only)",
      *     tags={"Categories"},
      *     @OA\Parameter(
      *         name="id",
@@ -121,11 +132,18 @@ class CategoryApiController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(response=200, description="Category deleted successfully"),
+     *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+
+        if ($user->role !== 'admin') {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+        
         $category = Category::findOrFail($id);
         $category->delete();
 
