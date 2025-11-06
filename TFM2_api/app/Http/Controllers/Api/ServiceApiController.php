@@ -35,10 +35,14 @@ class ServiceApiController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             required={"name","price"},
+     *             required={"name", "email", "phone", "price"},
      *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="phone", type="string"),
+     *             @OA\Property(property="address", type="string"),
      *             @OA\Property(property="description", type="string"),
      *             @OA\Property(property="price", type="number")
+     *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
      *     @OA\Response(response=201, description="Service created successfully"),
@@ -49,15 +53,23 @@ class ServiceApiController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:20',
+            'address' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'subcategory_id' => 'nullable|integer|exists:subcategories,id'
         ]);
 
         $service = Service::create([
             'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
             'description' => $request->description,
             'price' => $request->price,
             'user_id' => Auth::id(),
+            'subcategory_id' => $request->subcategory_id
         ]);
         return response()->json($service, 201);
     }
@@ -131,12 +143,12 @@ class ServiceApiController extends Controller
 
         $request->validate([
             'name' => 'sometimes|required|string|max:255',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
+            'email' => 'sometimes|email',
+            'phone' => 'sometimes|string|max:20',
+            'address' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
             'price' => 'sometimes|numeric',
-            'subcategory_id' => 'nullable|integer|exists:subcategories,id'
+            'subcategory_id' => 'sometimes|integer|exists:subcategories,id'
         ]);
 
         $service->update($request->only([

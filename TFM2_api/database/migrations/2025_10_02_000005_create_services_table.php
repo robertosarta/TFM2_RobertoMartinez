@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('description')->nullable();
             $table->decimal('price', 10, 2)->default(0)->after('description');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

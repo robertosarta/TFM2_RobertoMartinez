@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *     title="Service",
  *     description="Service model",
  *     type="object",
- *     required={"id", "name", "price"},
+ *     required={"id", "name", "email", "phone", "description", "price"},
  *     @OA\Property(property="id", type="integer", example=10),
  *     @OA\Property(property="name", type="string", example="Computer Repair"),
  *     @OA\Property(property="description", type="string", example="Repair and maintenance of laptops and PCs"),
@@ -42,7 +42,7 @@ class Service extends Model
     protected $casts = [
         'price' => 'decimal:2',
     ];
-    
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
