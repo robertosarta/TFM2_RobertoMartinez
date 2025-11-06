@@ -106,6 +106,7 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="phone", type="string"),
      *             @OA\Property(property="address", type="string"),
      *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="price", type="number"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
@@ -134,6 +135,7 @@ class ServiceApiController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'price' => 'sometimes|numeric',
             'subcategory_id' => 'nullable|integer|exists:subcategories,id'
         ]);
 
@@ -143,6 +145,7 @@ class ServiceApiController extends Controller
             'phone',
             'address',
             'description',
+            'price',
             'subcategory_id'
         ]));
         

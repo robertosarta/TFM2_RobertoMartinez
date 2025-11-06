@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('description')->nullable();
+            $table->decimal('price', 10, 2)->default(0)->after('description');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
             $table->timestamps();

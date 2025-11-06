@@ -34,10 +34,15 @@ class Service extends Model
         'phone',
         'address',
         'description',
+        'price',
         'user_id',
         'subcategory_id'
     ];
 
+    protected $casts = [
+        'price' => 'decimal:2',
+    ];
+    
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

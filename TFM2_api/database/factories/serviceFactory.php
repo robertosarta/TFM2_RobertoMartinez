@@ -24,6 +24,7 @@ class serviceFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'description' => $this->faker->sentence(10),
+            'price' => $this->faker->randomFloat(2, 10, 500),
             'user_id' => User::inRandomOrder()->first()->id,
             'subcategory_id' => Subcategory::inRandomOrder()->first()->id,
         ];
