@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->string('address')->nullable();
+            $table->json('address')->nullable();
             $table->string('description')->nullable();
             $table->decimal('price', 10, 2)->default(0)->after('description');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('subcategory_id')->nullable()->constrained('subcategories')->nullOnDelete();
             $table->timestamps();
         });
     }
