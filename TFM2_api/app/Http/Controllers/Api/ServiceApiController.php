@@ -37,11 +37,11 @@ class ServiceApiController extends Controller
      *         @OA\JsonContent(
      *             required={"name", "email", "phone", "price"},
      *             @OA\Property(property="name", type="string"),
-     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="email", type="string", format="email"),
      *             @OA\Property(property="phone", type="string"),
      *             @OA\Property(property="address", type="string"),
      *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="price", type="number")
+     *             @OA\Property(property="price", type="string"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
