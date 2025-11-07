@@ -14,6 +14,58 @@
         }
     ],
     "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "operationId": "5d4fa5d5607ed675ba93907e1fc94534",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -107,7 +159,7 @@
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Create a new category",
+                "summary": "Create a new category (admin only)",
                 "operationId": "973dcd9a9a46d5f57d4d646b3ebf9440",
                 "requestBody": {
                     "required": true,
@@ -130,6 +182,9 @@
                 "responses": {
                     "201": {
                         "description": "Category created successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -144,7 +199,7 @@
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Update a category",
+                "summary": "Update a category (admin only)",
                 "operationId": "a52b1b4450033746f1e6400c42aba74e",
                 "parameters": [
                     {
@@ -178,6 +233,9 @@
                 "responses": {
                     "200": {
                         "description": "Category updated successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -190,7 +248,7 @@
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Delete a category",
+                "summary": "Delete a category(admin only)",
                 "operationId": "9b3f7990d6d097cf6e213781cad76109",
                 "parameters": [
                     {
@@ -206,6 +264,9 @@
                 "responses": {
                     "200": {
                         "description": "Category deleted successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -251,17 +312,41 @@
                             "schema": {
                                 "required": [
                                     "name",
+                                    "email",
+                                    "phone",
                                     "price"
                                 ],
                                 "properties": {
                                     "name": {
                                         "type": "string"
                                     },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "object"
+                                    },
+                                    "address.street": {
+                                        "type": "string"
+                                    },
+                                    "address.city": {
+                                        "type": "string"
+                                    },
+                                    "address.zip": {
+                                        "type": "string"
+                                    },
                                     "description": {
                                         "type": "string"
                                     },
                                     "price": {
-                                        "type": "number"
+                                        "type": "string"
+                                    },
+                                    "subcategory_id": {
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"
@@ -340,9 +425,21 @@
                                         "type": "string"
                                     },
                                     "address": {
+                                        "type": "object"
+                                    },
+                                    "address.street": {
+                                        "type": "string"
+                                    },
+                                    "address.city": {
+                                        "type": "string"
+                                    },
+                                    "address.zip": {
                                         "type": "string"
                                     },
                                     "description": {
+                                        "type": "string"
+                                    },
+                                    "price": {
                                         "type": "string"
                                     },
                                     "subcategory_id": {
@@ -610,7 +707,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Create a new user",
+                "summary": "Create a new user (admin only)",
                 "operationId": "231f50bd02c169e5dd62082d768ac7cd",
                 "requestBody": {
                     "required": true,
@@ -832,6 +929,8 @@
                 "required": [
                     "id",
                     "name",
+                    "email",
+                    "phone",
                     "price"
                 ],
                 "properties": {
@@ -848,9 +947,8 @@
                         "example": "Repair and maintenance of laptops and PCs"
                     },
                     "price": {
-                        "type": "number",
-                        "format": "float",
-                        "example": 49.99
+                        "type": "string",
+                        "example": "49.99"
                     },
                     "user_id": {
                         "type": "integer",

@@ -39,7 +39,10 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string", format="email"),
      *             @OA\Property(property="phone", type="string"),
-     *             @OA\Property(property="address", type="string"),
+     *             @OA\Property(property="address", type="object"),
+     *             @OA\Property(property="address.street", type="string"),
+     *             @OA\Property(property="address.city", type="string"),
+     *             @OA\Property(property="address.zip", type="string"),
      *             @OA\Property(property="description", type="string"),
      *             @OA\Property(property="price", type="string"),
      *             @OA\Property(property="subcategory_id", type="integer")
@@ -55,7 +58,10 @@ class ServiceApiController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|string|max:20',
-            'address' => 'nullable|string|max:255',
+            'address' => 'nullable|array|max:255',
+            'adress.street' => 'nullable|string|max:255',
+            'adress.city' => 'nullable|string|max:255',
+            'adress.zip' => 'nullable|string|max:20',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
             'subcategory_id' => 'nullable|integer|exists:subcategories,id'
@@ -116,9 +122,12 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string"),
      *             @OA\Property(property="phone", type="string"),
-     *             @OA\Property(property="address", type="string"),
+     *             @OA\Property(property="address", type="object"),
+     *             @OA\Property(property="address.street", type="string"),
+     *             @OA\Property(property="address.city", type="string"),
+     *             @OA\Property(property="address.zip", type="string"),
      *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="price", type="number"),
+     *             @OA\Property(property="price", type="string"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
@@ -146,6 +155,9 @@ class ServiceApiController extends Controller
             'email' => 'sometimes|email',
             'phone' => 'sometimes|string|max:20',
             'address' => 'sometimes|string|max:255',
+            'address.street' => 'sometimes|string|max:255',
+            'address.city' => 'sometimes|string|max:255',
+            'address.zip' => 'sometimes|string|max:20',
             'description' => 'sometimes|string',
             'price' => 'sometimes|numeric',
             'subcategory_id' => 'sometimes|integer|exists:subcategories,id'

@@ -22,10 +22,10 @@ class AuthController extends Controller
      *             required={"name","email","password"},
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string"),
-     *             @OA\Property(property="password", type="string")
-     *             @OA\Property(property="password_confirmation", type="string")
-     *             @OA\Property(property="phone", type="string")
-     *             @OA\Property(property="adress", type="string")
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="password_confirmation", type="string"),
+     *             @OA\Property(property="phone", type="string"),
+     *             @OA\Property(property="address", type="string"),
      *         )
      *     ),
      *     @OA\Response(response=201, description="User registered successfully"),

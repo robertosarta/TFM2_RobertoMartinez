@@ -5,12 +5,14 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Subcategory;
+use App\Models\Service;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\servicio>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
  */
-class serviceFactory extends Factory
+class ServiceFactory extends Factory
 {
+    protected $model = Service::class;
     /**
      * Define the model's default state.
      *
@@ -22,7 +24,11 @@ class serviceFactory extends Factory
             'name' => $this->faker->company(),
             'email' => $this->faker->unique()->companyEmail(),
             'phone' => $this->faker->phoneNumber(),
-            'address' => $this->faker->address(),
+            'address' => [
+                'street' => $this->faker->streetAddress(),
+                'city' => $this->faker->city(),
+                'zip' => $this->faker->postcode(),
+            ],
             'description' => $this->faker->sentence(10),
             'price' => $this->faker->randomFloat(2, 10, 500),
             'user_id' => User::inRandomOrder()->first()->id,
