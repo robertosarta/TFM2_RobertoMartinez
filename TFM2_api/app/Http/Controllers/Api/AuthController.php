@@ -43,7 +43,7 @@ class AuthController extends Controller
         ]);
 
         $data['password'] = Hash::make($data['password']);
-        $data['role'] = 'cliente';
+        $data['role'] = 'user';
 
         $user = User::create($data);
 

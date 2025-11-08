@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->json('address')->nullable();
             $table->string('description')->nullable();
-            $table->decimal('price', 10, 2)->default(0)->after('description');
+            $table->decimal('price', 10, 2)->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('subcategory_id')->nullable()->constrained('subcategories')->nullOnDelete();
             $table->timestamps();
