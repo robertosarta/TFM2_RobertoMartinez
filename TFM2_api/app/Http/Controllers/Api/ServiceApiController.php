@@ -24,7 +24,7 @@ class ServiceApiController extends Controller
     public function index()
     {
         $services = Service::all();
-        return response()->json($services);
+        return $this->success($services, 200);
     }
 
     /**
@@ -77,7 +77,7 @@ class ServiceApiController extends Controller
             'user_id' => Auth::id(),
             'subcategory_id' => $request->subcategory_id
         ]);
-        return response()->json($service, 201);
+        return $this->success($service, 'Service created successfully', 201);
     }
 
     /**
@@ -102,7 +102,7 @@ class ServiceApiController extends Controller
         if (!$service) {
             return response()->json(['message' => 'Service not found'], 404);
         }
-        return response()->json($service);
+        return $this->success($service, 200);
     }
 
     /**
@@ -173,7 +173,7 @@ class ServiceApiController extends Controller
             'subcategory_id'
         ]));
         
-        return response()->json($service);
+        return $this->success($service, 200);
     }
 
     /**
@@ -209,6 +209,6 @@ class ServiceApiController extends Controller
         }
 
         $service->delete();
-        return response()->json(['message' => 'Service deleted']);
+        return $this->success(null, 'Service deleted successfully', 200);
     }
 }

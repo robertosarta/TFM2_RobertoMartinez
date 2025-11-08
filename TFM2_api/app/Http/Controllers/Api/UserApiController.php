@@ -26,7 +26,7 @@ class UserApiController extends Controller
             return response()->json(['message' => 'Forbidden'], 403);
         }
         $users = User::all();
-        return response()->json(['data' => $users], 200);
+        return $this->success($users);
     }
 
     /**
@@ -69,7 +69,7 @@ class UserApiController extends Controller
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
 
-        return response()->json(['data' => $user], 201);
+        return $this->success($user, 'User created successfully', 201);
     }
 
     /**
@@ -85,14 +85,13 @@ class UserApiController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(response=200, description="Successful operation"),
-     *     @OA\Response(response=404, description="User not found"),
-     *     security={{"sanctum": {}}}
+     *     @OA\Response(response=404, description="User not found")
      * )
      */
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return response()->json(['data' => $user], 200);
+        return $this->success($user, 200);
     }
 
     /**
@@ -142,7 +141,7 @@ class UserApiController extends Controller
         }
 
         $user->update($data);
-        return response()->json(['data' => $user], 200);
+        return $this->success($user, 'User updated successfully', 200);
     }
 
     /**
@@ -169,6 +168,6 @@ class UserApiController extends Controller
         }
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json(['message' => 'Deleted'], 200);
+        return $this->success(null, 'User deleted successfully', 200);
     }
 }

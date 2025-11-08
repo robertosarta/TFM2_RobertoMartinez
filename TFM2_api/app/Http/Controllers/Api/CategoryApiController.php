@@ -32,7 +32,7 @@ class CategoryApiController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->json(['success' => true, 'data' => $categories]);
+        return $this->success($categories, 200);
     }
 
     /**
@@ -66,11 +66,7 @@ class CategoryApiController extends Controller
 
         $category = Category::create($validated);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Category created successfully',
-            'data' => $category
-        ], 201);
+        return $this->success($category, 'Category created successfully', 201);
     }
 
     /**
@@ -112,11 +108,7 @@ class CategoryApiController extends Controller
         ]);
         $category->update($validated);
         
-        return response()->json([
-            'success' => true,
-            'message' => 'category updated successfully',
-            'data' => $category
-        ]);
+        return $this->success($category, 'Category updated successfully', 200);
     }
 
     /**
@@ -147,9 +139,6 @@ class CategoryApiController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Category deleted successfully'
-        ]);
+        return $this->success(null, 'Category deleted successfully', 200);
     }
 }

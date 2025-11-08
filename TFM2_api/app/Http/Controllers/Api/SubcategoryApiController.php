@@ -24,7 +24,7 @@ class SubcategoryApiController extends Controller
     public function index()
     {
         $subcategories = Subcategory::with('category')->get();
-        return response()->json($subcategories);
+        return $this->success($subcategories, 200);
     }
 
     /**
@@ -60,7 +60,7 @@ class SubcategoryApiController extends Controller
 
         $subcategory = Subcategory::create($validated);
 
-        return response()->json($subcategory, 201);
+        return $this->success($subcategory, 'Subcategory created successfully', 201);
     }
 
     /**
@@ -87,7 +87,7 @@ class SubcategoryApiController extends Controller
             return response()->json(['message' => 'Subcategory not found'], 404);
         }
 
-        return response()->json($subcategory);
+        return $this->success($subcategory, 200);
     }
 
     /**
@@ -135,7 +135,7 @@ class SubcategoryApiController extends Controller
 
         $subcategory->update($validated);
 
-        return response()->json($subcategory);
+        return $this->success($subcategory, 'Subcategory updated successfully', 200);
     }
 
     /**
@@ -172,6 +172,6 @@ class SubcategoryApiController extends Controller
 
         $subcategory->delete();
 
-        return response()->json(['message' => 'Subcategory deleted successfully']);
+        return $this->success(null, 'Subcategory deleted successfully', 200);
     }
 }
