@@ -47,7 +47,16 @@ class CategoryApiController extends Controller
      *             @OA\Property(property="name", type="string")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Category created successfully"),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Category created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Category")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )
@@ -88,7 +97,16 @@ class CategoryApiController extends Controller
      *             @OA\Property(property="name", type="string")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Category updated successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Category updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Category")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )
@@ -123,7 +141,16 @@ class CategoryApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Category deleted successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Category deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", nullable=true)
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )

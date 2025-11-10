@@ -27,6 +27,8 @@ abstract class Controller
             $payload['errors'] = $errors;
             return response()->json($payload, $status);
         }
+
+        return response()->json($payload, $status);
     }
         
 }

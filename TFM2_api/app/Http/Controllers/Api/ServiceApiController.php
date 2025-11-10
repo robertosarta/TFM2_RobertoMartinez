@@ -17,7 +17,16 @@ class ServiceApiController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Service"))
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Service")
+     *             )
+     *         )
      *     )
      * )
      */
@@ -39,16 +48,28 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string", format="email"),
      *             @OA\Property(property="phone", type="string"),
-     *             @OA\Property(property="address", type="object"),
-     *             @OA\Property(property="address.street", type="string"),
-     *             @OA\Property(property="address.city", type="string"),
-     *             @OA\Property(property="address.zip", type="string"),
+     *             @OA\Property(
+     *                 property="address",
+     *                 type="object",
+     *                 @OA\Property(property="street", type="string"),
+     *                 @OA\Property(property="city", type="string"),
+     *                 @OA\Property(property="zip", type="string"),
+     *             ),
      *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="price", type="string"),
+     *             @OA\Property(property="price", type="number", format="float"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Service created successfully"),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Service created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -92,7 +113,16 @@ class ServiceApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *         )
+     *     ),
      *     @OA\Response(response=404, description="Service not found")
      * )
      */
@@ -122,16 +152,28 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="email", type="string"),
      *             @OA\Property(property="phone", type="string"),
-     *             @OA\Property(property="address", type="object"),
-     *             @OA\Property(property="address.street", type="string"),
-     *             @OA\Property(property="address.city", type="string"),
-     *             @OA\Property(property="address.zip", type="string"),
-     *             @OA\Property(property="description", type="stringlll"),
-     *             @OA\Property(property="price", type="string"),
+     *             @OA\Property(
+     *                 property="address",
+     *                 type="object",
+     *                 @OA\Property(property="street", type="string"),
+     *                 @OA\Property(property="city", type="string"),
+     *                 @OA\Property(property="zip", type="string"),
+     *             ),
+     *             @OA\Property(property="description", type="string"),
+     *             @OA\Property(property="price", type="number", format="float"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Service updated successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Service updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     @OA\Response(response=404, description="Service not found"),
      *     security={{"sanctum": {}}}
@@ -188,7 +230,16 @@ class ServiceApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Service deleted successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Service deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", nullable=true)
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     @OA\Response(response=404, description="Service not found"),
      *     security={{"sanctum": {}}}

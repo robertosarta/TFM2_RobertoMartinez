@@ -17,7 +17,16 @@ class SubcategoryApiController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Subcategory"))
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/Subcategory")
+     *             )
+     *         )
      *     )
      * )
      */
@@ -40,7 +49,16 @@ class SubcategoryApiController extends Controller
      *             @OA\Property(property="category_id", type="integer")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Subcategory created successfully"),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Subcategory created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Subcategory")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
      *     security={{"sanctum": {}}}
      * )

@@ -15,7 +15,20 @@ class UserApiController extends Controller
      *     path="/users",
      *     summary="List all users (permission required)",
      *     tags={"Users"},
-     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/User")
+     *             )
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Forbidden"),
      *     security={{"sanctum": {}}}
      * )
@@ -47,7 +60,16 @@ class UserApiController extends Controller
      *             @OA\Property(property="role", type="string", enum={"admin","user"})
      *         )
      *     ),
-     *     @OA\Response(response=201, description="User created successfully"),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -84,7 +106,16 @@ class UserApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         )
+     *     ),
      *     @OA\Response(response=404, description="User not found")
      * )
      */
@@ -115,7 +146,16 @@ class UserApiController extends Controller
      *         @OA\Property(property="address", type="string"),
      *         @OA\Property(property="role", type="string", enum={"admin","user"})
      *     )),
-     *     @OA\Response(response=200, description="User updated successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Forbidden"),
      *     security={{"sanctum": {}}}
      * )
@@ -156,7 +196,16 @@ class UserApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="User deleted successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", nullable=true)
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Forbidden"),
      *     security={{"sanctum": {}}}
      * )
