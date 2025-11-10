@@ -93,8 +93,25 @@ class SubcategoryApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Successful operation"),
-     *     @OA\Response(response=404, description="Subcategory not found")
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Subcategory")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Subcategory not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Subcategory not found")
+     *         )
+     *     )
      * )
      */
     public function show($id)
@@ -102,7 +119,7 @@ class SubcategoryApiController extends Controller
         $subcategory = Subcategory::with('category')->find($id);
 
         if (!$subcategory) {
-            return response()->json(['message' => 'Subcategory not found'], 404);
+            return $this->error('Subcategory not found', 404);
         }
 
         return $this->success($subcategory, 200);
@@ -126,9 +143,26 @@ class SubcategoryApiController extends Controller
      *             @OA\Property(property="category_id", type="integer")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Subcategory updated successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Subcategory updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", ref="#/components/schemas/Subcategory")
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
-     *     @OA\Response(response=404, description="Subcategory not found"),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Subcategory not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Subcategory not found")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -143,7 +177,7 @@ class SubcategoryApiController extends Controller
         $subcategory = Subcategory::find($id);
 
         if (!$subcategory) {
-            return response()->json(['message' => 'Subcategory not found'], 404);
+            return $this->error('Subcategory not found', 404);
         }
 
         $validated = $request->validate([
@@ -168,9 +202,26 @@ class SubcategoryApiController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(response=200, description="Subcategory deleted successfully"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Subcategory deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="data", nullable=true)
+     *         )
+     *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
-     *     @OA\Response(response=404, description="Subcategory not found"),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Subcategory not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Subcategory not found")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -185,7 +236,7 @@ class SubcategoryApiController extends Controller
         $subcategory = Subcategory::find($id);
 
         if (!$subcategory) {
-            return response()->json(['message' => 'Subcategory not found'], 404);
+            return $this->error('Subcategory not found', 404);
         }
 
         $subcategory->delete();

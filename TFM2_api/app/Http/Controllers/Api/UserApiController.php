@@ -116,12 +116,23 @@ class UserApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/User")
      *         )
      *     ),
-     *     @OA\Response(response=404, description="User not found")
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="User not found")
+     *         )
+     *     )
      * )
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+        if (!$user) {
+            return $this->error('User not found', 404);
+        }
         return $this->success($user, 200);
     }
 
@@ -166,7 +177,10 @@ class UserApiController extends Controller
             return response()->json(['message' => 'Forbidden'], 403);
         }
 
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+        if (!$user) {
+            return $this->error('User not found', 404);
+        }
         $data = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|unique:users,email,'.$user->id,
@@ -215,7 +229,10 @@ class UserApiController extends Controller
         if (!Gate::allows('users-delete')) {
             return response()->json(['message' => 'Forbidden'], 403);
         }
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+        if (!$user) {
+            return $this->error('User not found', 404);
+        }
         $user->delete();
         return $this->success(null, 'User deleted successfully', 200);
     }

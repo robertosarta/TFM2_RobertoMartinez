@@ -123,14 +123,22 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Service")
      *         )
      *     ),
-     *     @OA\Response(response=404, description="Service not found")
+     *     @OA\Response(
+     *         response=404,
+     *         description="Service not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Service not found")
+     *         )
+     *     )
      * )
      */
     public function show(string $id)
     {
         $service = Service::find($id);
         if (!$service) {
-            return response()->json(['message' => 'Service not found'], 404);
+            return $this->error('Service not found', 404);
         }
         return $this->success($service, 200);
     }
@@ -184,7 +192,7 @@ class ServiceApiController extends Controller
         $service = Service::find($id);
 
         if(!$service) {
-            return response()->json(['message' => 'Service not found'], 404);
+            return $this->error('Service not found', 404);
         }
 
         $user = Auth::user();
@@ -241,7 +249,15 @@ class ServiceApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
-     *     @OA\Response(response=404, description="Service not found"),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Service not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Service not found")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -250,7 +266,7 @@ class ServiceApiController extends Controller
         $service = Service::find($id);
 
         if(!$service) {
-            return response()->json(['message' => 'Service not found'], 404);
+            return $this->error('Service not found', 404);
         }
 
         $user = Auth::user();

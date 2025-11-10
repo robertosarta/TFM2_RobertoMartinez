@@ -217,14 +217,8 @@ return [
                 ],
                 
             ],
-            'security' => [
-                /*
-                 * Examples of Securities
-                 */
-                [
-                    'sanctum' => []
-                ],
-            ],
+            // Do not apply security globally; declare per-operation
+            'security' => [],
         ],
 
         /*

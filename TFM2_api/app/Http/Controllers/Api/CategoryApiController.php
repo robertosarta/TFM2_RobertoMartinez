@@ -108,6 +108,15 @@ class CategoryApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Category not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Category not found")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -119,7 +128,10 @@ class CategoryApiController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        $category = Category::findOrFail($id);
+        $category = Category::find($id);
+        if (!$category) {
+            return $this->error('Category not found', 404);
+        }
 
         $validated = $request->validate([
             'name' => 'required|string|max:255'
@@ -152,6 +164,15 @@ class CategoryApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Category not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Category not found")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -163,7 +184,10 @@ class CategoryApiController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
         
-        $category = Category::findOrFail($id);
+        $category = Category::find($id);
+        if (!$category) {
+            return $this->error('Category not found', 404);
+        }
         $category->delete();
 
         return $this->success(null, 'Category deleted successfully', 200);
