@@ -25,7 +25,6 @@ abstract class Controller
 
         if ($errors) {
             $payload['errors'] = $errors;
-            return response()->json($payload, $status);
         }
 
         return response()->json($payload, $status);
