@@ -20,6 +20,7 @@ class CategoryApiController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string"),
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
@@ -57,7 +58,15 @@ class CategoryApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Category")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -66,7 +75,7 @@ class CategoryApiController extends Controller
         $user = Auth::user();
 
         if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $validated = $request->validate([
@@ -107,7 +116,15 @@ class CategoryApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Category")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Category not found",
@@ -120,12 +137,12 @@ class CategoryApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $user = Auth::user();
 
         if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $category = Category::find($id);
@@ -163,7 +180,15 @@ class CategoryApiController extends Controller
      *             @OA\Property(property="data", nullable=true)
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Category not found",
@@ -176,12 +201,12 @@ class CategoryApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $user = Auth::user();
 
         if ($user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
         
         $category = Category::find($id);

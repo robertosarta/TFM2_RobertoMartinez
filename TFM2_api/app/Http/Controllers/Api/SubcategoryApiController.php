@@ -59,7 +59,15 @@ class SubcategoryApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Subcategory")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -68,7 +76,7 @@ class SubcategoryApiController extends Controller
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $validated = $request->validate([
@@ -114,7 +122,7 @@ class SubcategoryApiController extends Controller
      *     )
      * )
      */
-    public function show($id)
+    public function show(int $id)
     {
         $subcategory = Subcategory::with('category')->find($id);
 
@@ -153,7 +161,15 @@ class SubcategoryApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Subcategory")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Subcategory not found",
@@ -166,12 +182,12 @@ class SubcategoryApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $subcategory = Subcategory::find($id);
@@ -212,7 +228,15 @@ class SubcategoryApiController extends Controller
      *             @OA\Property(property="data", nullable=true)
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Subcategory not found",
@@ -225,12 +249,12 @@ class SubcategoryApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $subcategory = Subcategory::find($id);

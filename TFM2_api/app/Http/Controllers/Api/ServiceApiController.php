@@ -134,7 +134,7 @@ class ServiceApiController extends Controller
      *     )
      * )
      */
-    public function show(string $id)
+    public function show(int $id)
     {
         $service = Service::find($id);
         if (!$service) {
@@ -182,12 +182,20 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/Service")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(response=404, description="Service not found"),
      *     security={{"sanctum": {}}}
      * )
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $service = Service::find($id);
 
@@ -197,7 +205,7 @@ class ServiceApiController extends Controller
 
         $user = Auth::user();
         if ($service->user_id !== $user->id && $user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $request->validate([
@@ -248,7 +256,15 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="data", nullable=true)
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Unauthorized"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *         )
+     *     ),
      *     @OA\Response(
      *         response=404,
      *         description="Service not found",
@@ -261,7 +277,7 @@ class ServiceApiController extends Controller
      *     security={{"sanctum": {}}}
      * )
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $service = Service::find($id);
 
@@ -272,7 +288,7 @@ class ServiceApiController extends Controller
         $user = Auth::user();
 
         if($service->user_id !== $user->id && $user->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->error('Unauthorized', 403);
         }
 
         $service->delete();

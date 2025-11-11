@@ -29,14 +29,22 @@ class UserApiController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Forbidden")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
     public function index()
     {
         if (!Gate::allows('users-show')) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return $this->error('Forbidden', 403);
         }
         $users = User::all();
         return $this->success($users);
@@ -76,7 +84,7 @@ class UserApiController extends Controller
     public function store(Request $request)
     {
         if (!Gate::allows('users-create')) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return $this->error('Forbidden', 403);
         }
         
         $data = $request->validate([
@@ -127,7 +135,7 @@ class UserApiController extends Controller
      *     )
      * )
      */
-    public function show($id)
+    public function show(int $id)
     {
         $user = User::find($id);
         if (!$user) {
@@ -167,14 +175,22 @@ class UserApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/User")
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Forbidden")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         if (!Gate::allows('users-update')) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return $this->error('Forbidden', 403);
         }
 
         $user = User::find($id);
@@ -220,14 +236,22 @@ class UserApiController extends Controller
      *             @OA\Property(property="data", nullable=true)
      *         )
      *     ),
-     *     @OA\Response(response=403, description="Forbidden"),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Forbidden")
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         if (!Gate::allows('users-delete')) {
-            return response()->json(['message' => 'Forbidden'], 403);
+            return $this->error('Forbidden', 403);
         }
         $user = User::find($id);
         if (!$user) {
