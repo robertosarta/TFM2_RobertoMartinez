@@ -38,15 +38,4 @@ class Subcategory extends Model
     }
 }
 
-/**
- * @OA\Schema(
- *     schema="SubcategoryBasic",
- *     title="SubcategoryBasic",
- *     description="Subcategory without nested category",
- *     type="object",
- *     required={"id", "name", "category_id"},
- *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="name", type="string", example="Laptops"),
- *     @OA\Property(property="category_id", type="integer", example=1)
- * )
- */
+ 

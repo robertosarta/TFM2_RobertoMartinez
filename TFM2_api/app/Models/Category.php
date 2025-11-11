@@ -37,14 +37,4 @@ class Category extends Model
     }
 }
 
-/**
- * @OA\Schema(
- *     schema="CategoryBasic",
- *     title="CategoryBasic",
- *     description="Category without nested subcategories",
- *     type="object",
- *     required={"id", "name"},
- *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="name", type="string", example="Technology")
- * )
- */
+ 

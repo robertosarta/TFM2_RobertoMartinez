@@ -147,7 +147,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/Category"
+                                                "$ref": "#/components/schemas/CategoryBasic"
                                             }
                                         }
                                     },
@@ -447,7 +447,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/Service"
+                                                "$ref": "#/components/schemas/ServiceBasic"
                                             }
                                         }
                                     },
@@ -529,7 +529,7 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Service"
+                                            "$ref": "#/components/schemas/ServiceBasic"
                                         }
                                     },
                                     "type": "object"
@@ -577,7 +577,7 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Service"
+                                            "$ref": "#/components/schemas/ServiceBasic"
                                         }
                                     },
                                     "type": "object"
@@ -681,7 +681,7 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Service"
+                                            "$ref": "#/components/schemas/ServiceBasic"
                                         }
                                     },
                                     "type": "object"
@@ -1609,7 +1609,7 @@
                     "subcategories": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/Subcategory"
+                            "$ref": "#/components/schemas/SubcategoryBasic"
                         }
                     }
                 },
@@ -1676,7 +1676,7 @@
                         "example": 5
                     },
                     "user": {
-                        "$ref": "#/components/schemas/User"
+                        "$ref": "#/components/schemas/UserBasic"
                     },
                     "subcategory": {
                         "$ref": "#/components/schemas/Subcategory"
@@ -1706,7 +1706,7 @@
                         "example": 1
                     },
                     "category": {
-                        "$ref": "#/components/schemas/Category"
+                        "$ref": "#/components/schemas/CategoryBasic"
                     }
                 },
                 "type": "object"
@@ -1750,6 +1750,136 @@
                         "items": {
                             "$ref": "#/components/schemas/Service"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryBasic": {
+                "title": "CategoryBasic",
+                "description": "Category without nested subcategories",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Technology"
+                    }
+                },
+                "type": "object"
+            },
+            "SubcategoryBasic": {
+                "title": "SubcategoryBasic",
+                "description": "Subcategory without nested category",
+                "required": [
+                    "id",
+                    "name",
+                    "category_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Laptops"
+                    },
+                    "category_id": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "UserBasic": {
+                "title": "UserBasic",
+                "description": "User core fields without relations",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    }
+                },
+                "type": "object"
+            },
+            "ServiceBasic": {
+                "title": "ServiceBasic",
+                "description": "Service fields without relations",
+                "required": [
+                    "id",
+                    "name",
+                    "email",
+                    "phone",
+                    "price"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Computer Repair"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "robertosarta@gmail.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+34 600 987 654"
+                    },
+                    "address": {
+                        "properties": {
+                            "street": {
+                                "type": "string",
+                                "example": "456 Service St"
+                            },
+                            "city": {
+                                "type": "string",
+                                "example": "Barcelona"
+                            },
+                            "zip": {
+                                "type": "string",
+                                "example": "08001"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Repair and maintenance of laptops and PCs"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "49.99"
+                    },
+                    "user_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "subcategory_id": {
+                        "type": "integer",
+                        "example": 5
                     }
                 },
                 "type": "object"
