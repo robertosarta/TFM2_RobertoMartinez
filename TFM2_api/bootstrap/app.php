@@ -16,22 +16,24 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // API-friendly 404 for missing models
+        // Para "cazar" excepciones y devolver respuestas JSON amigables para la API
         $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Resource not found',
+                    'errors' => null
                 ], 404);
             }
         });
 
-        // API-friendly 404 for missing routes
+        // Para "cazar" excepciones y devolver respuestas JSON amigables para la API
         $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Route not found',
+                    'errors' => null
                 ], 404);
             }
         });

@@ -56,7 +56,7 @@ class ServiceApiController extends Controller
      *                 @OA\Property(property="zip", type="string"),
      *             ),
      *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="price", type="number", format="float"),
+     *             @OA\Property(property="price", type="string"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),
@@ -168,7 +168,7 @@ class ServiceApiController extends Controller
      *                 @OA\Property(property="zip", type="string"),
      *             ),
      *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="price", type="number", format="float"),
+     *             @OA\Property(property="price", type="string"),
      *             @OA\Property(property="subcategory_id", type="integer")
      *         )
      *     ),

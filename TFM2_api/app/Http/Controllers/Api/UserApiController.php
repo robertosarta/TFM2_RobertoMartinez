@@ -121,7 +121,12 @@ class UserApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean"),
      *             @OA\Property(property="message", type="string"),
-     *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 @OA\Property(property="name", type="string"),
+     *                 @OA\Property(property="email", type="string")
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -137,7 +142,7 @@ class UserApiController extends Controller
      */
     public function show(int $id)
     {
-        $user = User::find($id);
+        $user = User::select('name','email')->find($id);
         if (!$user) {
             return $this->error('User not found', 404);
         }
@@ -182,6 +187,15 @@ class UserApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
      *             @OA\Property(property="message", type="string", example="Forbidden")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="User not found")
      *         )
      *     ),
      *     security={{"sanctum": {}}}
@@ -243,6 +257,15 @@ class UserApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
      *             @OA\Property(property="message", type="string", example="Forbidden")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="User not found")
      *         )
      *     ),
      *     security={{"sanctum": {}}}

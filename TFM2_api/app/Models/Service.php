@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="zip", type="string", example="08001")
  *     ),
  *     @OA\Property(property="description", type="string", example="Repair and maintenance of laptops and PCs"),
- *     @OA\Property(property="price", type="number", format="float", example=49.99),
+ *     @OA\Property(property="price", type="string", example="49.99"),
  *     @OA\Property(property="user_id", type="integer", example=2),
  *     @OA\Property(property="subcategory_id", type="integer", example=5),
  *     @OA\Property(property="user", ref="#/components/schemas/User"),
@@ -49,7 +49,7 @@ class Service extends Model
     ];
 
     protected $casts = [
-        'price' => 'float',
+        'price' => 'decimal:2',
         'address' => 'array',
     ];
 

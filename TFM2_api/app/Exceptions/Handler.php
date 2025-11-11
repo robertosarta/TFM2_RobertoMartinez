@@ -20,7 +20,9 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      */
-    public function render($request, Throwable $e)
+    
+    public function render($request, Throwable $e) 
+    // Para "cazar" excepciones y devolver respuestas JSON amigables para la API
     {
         $isApi = $request->expectsJson() || $request->is('api/*');
 
