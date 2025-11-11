@@ -24,7 +24,7 @@ class ServiceApiController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/Service")
+     *                 @OA\Items(ref="#/components/schemas/ServiceBasic")
      *             )
      *         )
      *     )
@@ -67,7 +67,7 @@ class ServiceApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean"),
      *             @OA\Property(property="message", type="string"),
-     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *             @OA\Property(property="data", ref="#/components/schemas/ServiceBasic")
      *         )
      *     ),
      *     security={{"sanctum": {}}}
@@ -120,7 +120,7 @@ class ServiceApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean"),
      *             @OA\Property(property="message", type="string"),
-     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *             @OA\Property(property="data", ref="#/components/schemas/ServiceBasic")
      *         )
      *     ),
      *     @OA\Response(
@@ -179,7 +179,7 @@ class ServiceApiController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean"),
      *             @OA\Property(property="message", type="string"),
-     *             @OA\Property(property="data", ref="#/components/schemas/Service")
+     *             @OA\Property(property="data", ref="#/components/schemas/ServiceBasic")
      *         )
      *     ),
      *     @OA\Response(

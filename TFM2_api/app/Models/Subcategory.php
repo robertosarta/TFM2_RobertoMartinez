@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *     @OA\Property(property="id", type="integer", example=1),
  *     @OA\Property(property="name", type="string", example="Laptops"),
  *     @OA\Property(property="category_id", type="integer", example=1),
- *     @OA\Property(property="category", ref="#/components/schemas/Category")
+ *     @OA\Property(property="category", ref="#/components/schemas/CategoryBasic")
  * )
  */
 class Subcategory extends Model
@@ -37,3 +37,16 @@ class Subcategory extends Model
         return $this->hasMany(Service::class, 'subcategory_id');
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="SubcategoryBasic",
+ *     title="SubcategoryBasic",
+ *     description="Subcategory without nested category",
+ *     type="object",
+ *     required={"id", "name", "category_id"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Laptops"),
+ *     @OA\Property(property="category_id", type="integer", example=1)
+ * )
+ */

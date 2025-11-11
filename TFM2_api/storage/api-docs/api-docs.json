@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "TFM2 API Documentation",
-        "description": "Documentación de la API de TFM2",
+        "description": "DocumentaciÃ³n de la API de TFM2",
         "contact": {
             "email": "tuemail@ejemplo.com"
         },
@@ -141,6 +141,9 @@
                                         "success": {
                                             "type": "boolean"
                                         },
+                                        "message": {
+                                            "type": "string"
+                                        },
                                         "data": {
                                             "type": "array",
                                             "items": {
@@ -181,10 +184,45 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Category created successfully"
+                        "description": "Category created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -232,10 +270,65 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Category updated successfully"
+                        "description": "Category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -263,10 +356,65 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Category deleted successfully"
+                        "description": "Category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -289,10 +437,21 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Service"
-                                    }
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Service"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -328,16 +487,18 @@
                                         "type": "string"
                                     },
                                     "address": {
+                                        "properties": {
+                                            "street": {
+                                                "type": "string"
+                                            },
+                                            "city": {
+                                                "type": "string"
+                                            },
+                                            "zip": {
+                                                "type": "string"
+                                            }
+                                        },
                                         "type": "object"
-                                    },
-                                    "address.street": {
-                                        "type": "string"
-                                    },
-                                    "address.city": {
-                                        "type": "string"
-                                    },
-                                    "address.zip": {
-                                        "type": "string"
                                     },
                                     "description": {
                                         "type": "string"
@@ -356,7 +517,25 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Service created successfully"
+                        "description": "Service created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Service"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -386,10 +565,45 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Service"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Service not found"
+                        "description": "Service not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -425,16 +639,18 @@
                                         "type": "string"
                                     },
                                     "address": {
+                                        "properties": {
+                                            "street": {
+                                                "type": "string"
+                                            },
+                                            "city": {
+                                                "type": "string"
+                                            },
+                                            "zip": {
+                                                "type": "string"
+                                            }
+                                        },
                                         "type": "object"
-                                    },
-                                    "address.street": {
-                                        "type": "string"
-                                    },
-                                    "address.city": {
-                                        "type": "string"
-                                    },
-                                    "address.zip": {
-                                        "type": "string"
                                     },
                                     "description": {
                                         "type": "string"
@@ -453,10 +669,45 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Service updated successfully"
+                        "description": "Service updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Service"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
                         "description": "Service not found"
@@ -487,13 +738,65 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Service deleted successfully"
+                        "description": "Service deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Service not found"
+                        "description": "Service not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Service not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -516,10 +819,21 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Subcategory"
-                                    }
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Subcategory"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -556,10 +870,45 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Subcategory created successfully"
+                        "description": "Subcategory created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Subcategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -589,10 +938,45 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Subcategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Subcategory not found"
+                        "description": "Subcategory not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subcategory not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -632,13 +1016,65 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Subcategory updated successfully"
+                        "description": "Subcategory updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Subcategory"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Subcategory not found"
+                        "description": "Subcategory not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subcategory not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -666,13 +1102,65 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Subcategory deleted successfully"
+                        "description": "Subcategory deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Subcategory not found"
+                        "description": "Subcategory not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Subcategory not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -691,10 +1179,48 @@
                 "operationId": "15a1555d1d1308580ebe100b63a494eb",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -743,7 +1269,7 @@
                                         "type": "string",
                                         "enum": [
                                             "admin",
-                                            "cliente"
+                                            "user"
                                         ]
                                     }
                                 },
@@ -754,7 +1280,25 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "User created successfully"
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -784,17 +1328,55 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "User not found"
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -840,7 +1422,7 @@
                                         "type": "string",
                                         "enum": [
                                             "admin",
-                                            "cliente"
+                                            "user"
                                         ]
                                     }
                                 },
@@ -851,10 +1433,65 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "User updated successfully"
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -882,10 +1519,65 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User deleted successfully"
+                        "description": "User deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -941,6 +1633,31 @@
                     "name": {
                         "type": "string",
                         "example": "Computer Repair"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "robertosarta@gmail.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+34 600 987 654"
+                    },
+                    "address": {
+                        "properties": {
+                            "street": {
+                                "type": "string",
+                                "example": "456 Service St"
+                            },
+                            "city": {
+                                "type": "string",
+                                "example": "Barcelona"
+                            },
+                            "zip": {
+                                "type": "string",
+                                "example": "08001"
+                            }
+                        },
+                        "type": "object"
                     },
                     "description": {
                         "type": "string",
@@ -1036,6 +1753,14 @@
                     }
                 },
                 "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },

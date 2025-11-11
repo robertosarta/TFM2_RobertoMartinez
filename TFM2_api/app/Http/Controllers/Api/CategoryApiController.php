@@ -24,7 +24,7 @@ class CategoryApiController extends Controller
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/Category")
+     *                 @OA\Items(ref="#/components/schemas/CategoryBasic")
      *             )
      *         )
      *     )

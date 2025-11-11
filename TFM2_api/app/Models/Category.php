@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  *     @OA\Property(
  *         property="subcategories",
  *         type="array",
- *         @OA\Items(ref="#/components/schemas/Subcategory")
+ *         @OA\Items(ref="#/components/schemas/SubcategoryBasic")
  *     )
  * )
  */
@@ -36,3 +36,15 @@ class Category extends Model
         return $this->hasMany(Subcategory::class, 'category_id');
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="CategoryBasic",
+ *     title="CategoryBasic",
+ *     description="Category without nested subcategories",
+ *     type="object",
+ *     required={"id", "name"},
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="Technology")
+ * )
+ */
