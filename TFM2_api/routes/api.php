@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ServiceApiController;
 use App\Http\Controllers\Api\SubcategoryApiController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']); //LOGIN PUBLICO
 Route::post('/register', [AuthController::class, 'register']); //REGISTRO PUBLICO
 Route::get('/users/{id}', [UserApiController::class, 'show']); //VER USUARIO PUBLICO
 Route::get('/categories', [CategoryApiController::class, 'index']);//INDICE CATEGORIAS PUBLICO

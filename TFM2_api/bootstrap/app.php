@@ -4,6 +4,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,25 +19,34 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // Para "cazar" excepciones y devolver respuestas JSON amigables para la API
-        $exceptions->render(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e, $request) {
+        // API-friendly 404 for missing models
+        $exceptions->render(function (ModelNotFoundException $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Resource not found',
-                    'errors' => null
                 ], 404);
             }
         });
 
-        // Para "cazar" excepciones y devolver respuestas JSON amigables para la API
-        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
+        // API-friendly 404 for missing routes
+        $exceptions->render(function (NotFoundHttpException $e, $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Route not found',
-                    'errors' => null
                 ], 404);
+            }
+        });
+
+        // API-friendly 422 for validation errors
+        $exceptions->render(function (ValidationException $e, $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors(),
+                ], 422);
             }
         });
     })->create();

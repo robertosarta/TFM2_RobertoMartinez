@@ -67,6 +67,7 @@ class AuthController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=200, description="Login successful, returns token"),
+     *     @OA\Response(response=401, description="Invalid credentials"),
      *     @OA\Response(response=422, description="Validation failed")
      * )
      */
@@ -77,16 +78,16 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', request()->email)->first();
+        $user = User::where('email', $request->input('email'))->first();
 
-        if (! $user || ! Hash::check(request()->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
+            return response()->json([
+                'message' => 'Invalid credentials',
+            ], 401);
         }
 
         return response()->json([
-            'token' => $user->createToken(request()->email)->plainTextToken
+            'token' => $user->createToken($request->input('email'))->plainTextToken
         ]);
     }
 

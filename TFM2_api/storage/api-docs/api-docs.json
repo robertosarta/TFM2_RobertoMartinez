@@ -99,6 +99,9 @@
                     "200": {
                         "description": "Login successful, returns token"
                     },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
                     "422": {
                         "description": "Validation failed"
                     }
