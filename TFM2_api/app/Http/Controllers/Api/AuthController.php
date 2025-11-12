@@ -102,10 +102,22 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->tokens()->delete();
+        $user = $request->user();
+
+        // Revocamos solo el token actual para evitar condiciones de carrera
+        // con los guards/middlewares que puedan usar el token durante la petición.
+        $currentToken = method_exists($user, 'currentAccessToken') ? $user->currentAccessToken() : null;
+
+        if ($currentToken) {
+            $currentToken->delete();
+        } else {
+            // Alternativa: si está autenticado por sesión / no se detecta token actual,
+            // elimina todos los tokens personales de este usuario.
+            $user->tokens()->delete();
+        }
 
         return response()->json([
             'message' => 'Logged out'
-        ]);
+        ], 200);
     }
 }
