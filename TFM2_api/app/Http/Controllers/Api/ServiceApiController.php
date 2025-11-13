@@ -70,6 +70,19 @@ class ServiceApiController extends Controller
      *             @OA\Property(property="data", ref="#/components/schemas/ServiceBasic")
      *         )
      *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation failed",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Validation failed"),
+     *             @OA\Property(property="errors", type="object", example={
+     *                 "name": {"The name field is required."},
+     *                 "price": {"The price field must be a number."}
+     *             })
+     *         )
+     *     ),
      *     security={{"sanctum": {}}}
      * )
      */
@@ -183,12 +196,22 @@ class ServiceApiController extends Controller
      *         )
      *     ),
      *     @OA\Response(
-     *         response=403,
-     *         description="Unauthorized",
+     *         response=422,
+     *         description="Validation failed or empty payload",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *             @OA\Property(property="message", type="string", example="No data provided or invalid JSON"),
+     *             @OA\Property(property="errors", type="object", nullable=true, example={"name": {"The name field must be a string."}})
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Forbidden",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Forbidden")
      *         )
      *     ),
      *     @OA\Response(response=404, description="Service not found"),
@@ -205,7 +228,14 @@ class ServiceApiController extends Controller
 
         $user = Auth::user();
         if ($service->user_id !== $user->id && $user->role !== 'admin') {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Forbidden', 403);
+        }
+
+        // Evitamos respuestas 200 sin cambios cuando el JSON es inválido o no trae campos actualizables
+        $updatable = ['name', 'email', 'phone', 'address', 'description', 'price', 'subcategory_id'];
+        $payload = $request->only($updatable);
+        if (empty($payload)) {
+            return $this->error('No data provided or invalid JSON', 422);
         }
 
         $request->validate([
@@ -221,17 +251,9 @@ class ServiceApiController extends Controller
             'subcategory_id' => 'sometimes|integer|exists:subcategories,id'
         ]);
 
-        $service->update($request->only([
-            'name',
-            'email',
-            'phone',
-            'address',
-            'description',
-            'price',
-            'subcategory_id'
-        ]));
-        
-        return $this->success($service, 200);
+        $service->update($payload);
+
+        return $this->success($service, 'Service updated successfully', 200);
     }
 
     /**
@@ -258,11 +280,11 @@ class ServiceApiController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Unauthorized",
+     *         description="Forbidden",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *             @OA\Property(property="message", type="string", example="Forbidden")
      *         )
      *     ),
      *     @OA\Response(
@@ -288,7 +310,7 @@ class ServiceApiController extends Controller
         $user = Auth::user();
 
         if($service->user_id !== $user->id && $user->role !== 'admin') {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Forbidden', 403);
         }
 
         $service->delete();

@@ -24,5 +24,15 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             //no le pongo el remember token porque al ser admin me parece mejor asi
         ]);
+
+        User::create([
+            'name' => 'Carlos',
+            'email' => 'cliente@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('cliente123'),
+            'phone' => '600112233',
+            'address' => 'Avenida Central 45',
+            'role' => 'cliente',
+        ]);
     }
 }

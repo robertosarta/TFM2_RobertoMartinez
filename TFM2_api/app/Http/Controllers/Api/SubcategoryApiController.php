@@ -61,11 +61,11 @@ class SubcategoryApiController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Unauthorized",
+     *         description="Forbidden",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *             @OA\Property(property="message", type="string", example="Forbidden")
      *         )
      *     ),
      *     security={{"sanctum": {}}}
@@ -76,7 +76,7 @@ class SubcategoryApiController extends Controller
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Forbidden', 403);
         }
 
         $validated = $request->validate([
@@ -163,11 +163,11 @@ class SubcategoryApiController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Unauthorized",
+     *         description="Forbidden",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *             @OA\Property(property="message", type="string", example="Forbidden")
      *         )
      *     ),
      *     @OA\Response(
@@ -187,7 +187,7 @@ class SubcategoryApiController extends Controller
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Forbidden', 403);
         }
 
         $subcategory = Subcategory::find($id);
@@ -230,11 +230,11 @@ class SubcategoryApiController extends Controller
      *     ),
      *     @OA\Response(
      *         response=403,
-     *         description="Unauthorized",
+     *         description="Forbidden",
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorized")
+     *             @OA\Property(property="message", type="string", example="Forbidden")
      *         )
      *     ),
      *     @OA\Response(
@@ -254,7 +254,7 @@ class SubcategoryApiController extends Controller
         $user = Auth::user();
 
         if (!$user || $user->role !== 'admin') {
-            return $this->error('Unauthorized', 403);
+            return $this->error('Forbidden', 403);
         }
 
         $subcategory = Subcategory::find($id);
