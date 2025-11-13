@@ -39,7 +39,7 @@ class ServiceApiController extends Controller
     /**
      * @OA\Post(
      *     path="/services",
-     *     summary="Create a new service",
+     *     summary="Create a new service (auth required)",
      *     tags={"Services"},
      *     @OA\RequestBody(
      *         required=true,
@@ -159,7 +159,7 @@ class ServiceApiController extends Controller
     /**
      * @OA\Put(
      *     path="/services/{id}",
-     *     summary="Update a service",
+     *     summary="Update a service (owner or admin)",
      *     tags={"Services"},
      *     @OA\Parameter(
      *         name="id",
@@ -225,20 +225,15 @@ class ServiceApiController extends Controller
         if(!$service) {
             return $this->error('Service not found', 404);
         }
-
+        
+        // Verificamos que el usuario autenticado es el propietario del servicio o un admin
         $user = Auth::user();
         if ($service->user_id !== $user->id && $user->role !== 'admin') {
             return $this->error('Forbidden', 403);
         }
-
-        // Evitamos respuestas 200 sin cambios cuando el JSON es inválido o no trae campos actualizables
-        $updatable = ['name', 'email', 'phone', 'address', 'description', 'price', 'subcategory_id'];
-        $payload = $request->only($updatable);
-        if (empty($payload)) {
-            return $this->error('No data provided or invalid JSON', 422);
-        }
-
-        $request->validate([
+        
+        // Validamos solo los campos que se envian en el request
+        $data = $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|email',
             'phone' => 'sometimes|string|max:20',
@@ -251,15 +246,19 @@ class ServiceApiController extends Controller
             'subcategory_id' => 'sometimes|integer|exists:subcategories,id'
         ]);
 
-        $service->update($payload);
+        // Evitamos respuestas 200 sin cambios cuando el JSON esta vacio
+        if (empty($data)) {
+            return $this->error('No data provided or invalid JSON', 422);
+        }
 
+        $service->update($data);
         return $this->success($service, 'Service updated successfully', 200);
     }
 
     /**
      * @OA\Delete(
      *     path="/services/{id}",
-     *     summary="Delete a service",
+     *     summary="Delete a service (owner or admin)",
      *     tags={"Services"},
      *     @OA\Parameter(
      *         name="id",

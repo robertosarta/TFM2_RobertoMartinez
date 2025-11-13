@@ -13,7 +13,7 @@ class UserApiController extends Controller
     /**
      * @OA\Get(
      *     path="/users",
-     *     summary="List all users (permission required)",
+     *     summary="List all users (admin only)",
      *     tags={"Users"},
      *     @OA\Response(
      *         response=200,
@@ -152,7 +152,7 @@ class UserApiController extends Controller
     /**
      * @OA\Put(
      *     path="/users/{id}",
-     *     summary="Update a user (permission required)",
+     *     summary="Update a user (admin only)",
      *     tags={"Users"},
      *     @OA\Parameter(
      *         name="id",
@@ -178,6 +178,16 @@ class UserApiController extends Controller
      *             @OA\Property(property="success", type="boolean"),
      *             @OA\Property(property="message", type="string"),
      *             @OA\Property(property="data", ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation failed or empty payload",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="No data provided or invalid JSON"),
+     *             @OA\Property(property="errors", type="object", nullable=true)
      *         )
      *     ),
      *     @OA\Response(
@@ -220,6 +230,11 @@ class UserApiController extends Controller
             'role' => 'sometimes|in:admin,user',
         ]);
 
+        // Rechazar payload vacío o JSON inválido (sin campos actualizables)
+        if (empty($data)) {
+            return $this->error('No data provided or invalid JSON', 422);
+        }
+
         if(isset($data['password'])){
             $data['password'] = Hash::make($data['password']);
         }
@@ -231,7 +246,7 @@ class UserApiController extends Controller
     /**
      * @OA\Delete(
      *     path="/users/{id}",
-     *     summary="Delete a user (permission required)",
+     *     summary="Delete a user (admin only)",
      *     tags={"Users"},
      *     @OA\Parameter(
      *         name="id",

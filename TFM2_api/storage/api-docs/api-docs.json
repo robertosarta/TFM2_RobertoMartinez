@@ -208,7 +208,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -219,7 +219,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -294,7 +294,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -305,7 +305,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -380,7 +380,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -391,7 +391,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -465,7 +465,7 @@
                 "tags": [
                     "Services"
                 ],
-                "summary": "Create a new service",
+                "summary": "Create a new service (auth required)",
                 "operationId": "ed38e15a00a693a49e8dcae1ef352740",
                 "requestBody": {
                     "required": true,
@@ -533,6 +533,37 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/ServiceBasic"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ],
+                                                "price": [
+                                                    "The price field must be a number."
+                                                ]
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -614,7 +645,7 @@
                 "tags": [
                     "Services"
                 ],
-                "summary": "Update a service",
+                "summary": "Update a service (owner or admin)",
                 "operationId": "7c4bb57a9128fbf351143500ac958386",
                 "parameters": [
                     {
@@ -692,8 +723,8 @@
                             }
                         }
                     },
-                    "403": {
-                        "description": "Unauthorized",
+                    "422": {
+                        "description": "Validation failed or empty payload",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -704,7 +735,36 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "No data provided or invalid JSON"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field must be a string."
+                                                ]
+                                            },
+                                            "nullable": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -726,7 +786,7 @@
                 "tags": [
                     "Services"
                 ],
-                "summary": "Delete a service",
+                "summary": "Delete a service (owner or admin)",
                 "operationId": "1532daba6c71dc8b825bbb83c63e636f",
                 "parameters": [
                     {
@@ -762,7 +822,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -773,7 +833,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -894,7 +954,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -905,7 +965,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -1040,7 +1100,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1051,7 +1111,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -1126,7 +1186,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorized",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1137,7 +1197,7 @@
                                         },
                                         "message": {
                                             "type": "string",
-                                            "example": "Unauthorized"
+                                            "example": "Forbidden"
                                         }
                                     },
                                     "type": "object"
@@ -1178,7 +1238,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "List all users (permission required)",
+                "summary": "List all users (admin only)",
                 "operationId": "15a1555d1d1308580ebe100b63a494eb",
                 "responses": {
                     "200": {
@@ -1385,7 +1445,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Update a user (permission required)",
+                "summary": "Update a user (admin only)",
                 "operationId": "e3e210dfaf6f58768553de298e893db8",
                 "parameters": [
                     {
@@ -1507,7 +1567,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Delete a user (permission required)",
+                "summary": "Delete a user (admin only)",
                 "operationId": "f3940a9ea9e791931e638ec542afe31d",
                 "parameters": [
                     {
